@@ -25,6 +25,10 @@
         "webpack-livereload-plugin": "^1.2.0"
     },
     "dependencies": {
-        "alpinejs": "^2.8.0"
+        "alpinejs": "^2.8.0",
+        "dotenv": "^8.2.0",
+        "jquery": "^3.5.1",
+        "mix-env-file": "^0.1.0",
+        "plaid": "^8.1.2"
     }
 }

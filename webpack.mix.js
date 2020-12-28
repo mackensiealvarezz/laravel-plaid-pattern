@@ -1,4 +1,6 @@
+require('dotenv').config();
 const mix = require('laravel-mix');
+
 
 /*
  |--------------------------------------------------------------------------
@@ -16,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
         require("tailwindcss"),
     ]);
 
+mix.copy('resources/js/plaid.js', 'public/js/plaid.js');
 
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 

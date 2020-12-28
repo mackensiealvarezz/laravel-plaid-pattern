@@ -16,7 +16,10 @@
                 <span class="block font-light text-blue-900">{{ $user->created_at }}</span>
             </div>
             <div class="px-2 py-4">
-                <button class="block px-4 py-3 text-right bg-blue-900 rounded-sm text-blue-50 text-md"> Link an
+                <button id="plaid_link_btn" data-id="{{ $user->id }}"
+                    class="block px-4 py-3 text-right bg-blue-900 rounded-sm text-blue-50 text-md" x-data @click="
+                        create_link_token($el.dataset.id);
+                    "> Link an
                     Item</button>
             </div>
         </div>

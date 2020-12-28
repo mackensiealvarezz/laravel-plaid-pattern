@@ -61,3 +61,12 @@
 
     </div>
 </div>
+@section('js')
+<script src="{{asset('js/plaid.js')}}" type="text/javascript"></script>
+
+<script>
+
+
+</script>
+
+@endsection
