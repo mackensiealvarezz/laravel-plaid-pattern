@@ -10,30 +10,26 @@ const PLAID_COUNTRY_CODES = 'US';
 const PLAID_REDIRECT_URI = '';
 
 
-// Create a link token with configs which we can then use to initialize Plaid Link client-side.
-// See https://plaid.com/docs/#create-link-token
 function create_link_token(user_id) {
-
-    const configs = {
-        user: {
-            // This should correspond to a unique id for the current user.
-            client_user_id: user_id,
+    console.log(window.plaid);
+    var linkHandler = Plaid.create({
+        token: '',
+        onLoad: function () {
+            // The Link module finished loading.
         },
-        client_name: 'Plaid Quickstart',
-        products: PLAID_PRODUCTS,
-        country_codes: PLAID_COUNTRY_CODES,
-        language: 'en',
-    };
-
-    if (PLAID_REDIRECT_URI !== '') {
-        configs.redirect_uri = PLAID_REDIRECT_URI;
-    }
-
-    window.plaid.createLinkToken(configs, function (error, createTokenResponse) {
-        if (error != null) {
-            console.log('error: ' + error);
-        }
-        console.log('response: ' + createTokenResponse);
+        onSuccess: function (public_token, metadata) {
+            // The onSuccess function is called when the user has successfully
+            // authenticated and selected an account to use.
+            console.log(public_token);
+        },
+        onExit: function (err, metadata) {
+            // The user exited the Link flow. This is not an Error, so much as a user-directed exit
+            if (err != null) {
+                console.log(err);
+                console.log(metadata);
+            }
+        },
     });
 
+    console.log(user_id);
 }

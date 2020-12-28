@@ -52004,7 +52004,7 @@ var PLAID_REDIRECT_URI = process.env.PLAID_REDIRECT_URI || '';
 window.plaid = new plaid.Client({
   clientID: PLAID_CLIENT_ID,
   secret: PLAID_SECRET,
-  env: plaid.environments[PLAID_ENV],
+  env: plaid.environments.sandbox,
   options: {
     version: '2019-05-29'
   }
