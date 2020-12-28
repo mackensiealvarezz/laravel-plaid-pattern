@@ -12,11 +12,6 @@ class UserTable extends Component
         'refresh'  => '$refresh'
     ];
 
-    public function createLinkToken(User $user)
-    {
-        return (new Plaid)->createLinkToken($user)['link_token'];
-    }
-
     public function render()
     {
         return view('livewire.users.user-table', [
