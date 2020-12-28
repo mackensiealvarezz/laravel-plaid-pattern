@@ -1,4 +1,4 @@
-<div class="py-32 px-72 " x-data="{openUser: false }">
+<div class="px-40 py-32 " x-data="{openUser: false }">
     <div class="container mx-auto">
 
         {{-- Top section --}}
@@ -54,5 +54,10 @@
         <div class="pt-4" x-show="openUser">
             <livewire:users.add-user x-show="openUser" />
         </div>
+
+        <div class="mt-10">
+            <livewire:users.user-table />
+        </div>
+
     </div>
 </div>

@@ -22,6 +22,7 @@ class AddUser extends Component
     {
         $this->validate();
         $this->user->save();
+        $this->emit('refresh');
     }
 
     public function render()
