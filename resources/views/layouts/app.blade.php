@@ -19,6 +19,9 @@
 
 
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    </script>
+    <x-livewire-alert::scripts />
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 

@@ -19,4 +19,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(LinkEvent::class);
     }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

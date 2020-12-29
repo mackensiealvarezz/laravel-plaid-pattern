@@ -25,8 +25,17 @@ class Plaid
             'user' => [
                 'client_user_id' => "$user->id"
             ],
-            'webhook' => 'https://e5163004ca7ec8b8764b0091dccaa513.m.pipedream.net',
+            'webhook' => '',
             'products' => ['transactions']
+        ])->json();
+    }
+
+    public function exchangePublicToken($publicToken)
+    {
+        return Http::post(self::baseUrl() . '/item/public_token/exchange', [
+            'client_id' => config('services.plaid.clientId'),
+            'secret' => config('services.plaid.secret'),
+            'public_token' => $publicToken,
         ])->json();
     }
 }
