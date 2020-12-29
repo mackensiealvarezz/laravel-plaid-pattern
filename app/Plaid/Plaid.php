@@ -25,6 +25,7 @@ class Plaid
             'user' => [
                 'client_user_id' => "$user->id"
             ],
+            'webhook' => 'https://e5163004ca7ec8b8764b0091dccaa513.m.pipedream.net',
             'products' => ['transactions']
         ])->json();
     }
