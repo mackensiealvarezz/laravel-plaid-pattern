@@ -25,7 +25,7 @@ class Plaid
             'user' => [
                 'client_user_id' => "$user->id"
             ],
-            'webhook' => '',
+            'webhook' => route('plaid.webhook'),
             'products' => ['transactions']
         ])->json();
     }

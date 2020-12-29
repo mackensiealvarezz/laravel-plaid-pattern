@@ -29,8 +29,8 @@ class Link extends Component
         ]);
 
         // prevent duplicate items for the same institution per user.
-        if (Item::where('plaid_institution_id', '')->where('user_id', $this->user->id)->first()) {
-            $this->alert('error', 'Hello World!', [
+        if (Item::where('plaid_institution_id', $metadata['institution']['institution_id'])->where('user_id', $this->user->id)->first()) {
+            $this->alert('error', 'You have already link this institution with an item', [
                 'position' =>  'top-end',
                 'timer' =>  3000,
                 'toast' =>  true,

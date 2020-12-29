@@ -19,5 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::post('plaid/webhooks', [WebHooksController::class, 'handle'])->post('plaid.webhook');
+Route::post('plaid/webhooks', [WebHooksController::class, 'handle'])->name('plaid.webhook');
