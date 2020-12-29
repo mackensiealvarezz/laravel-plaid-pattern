@@ -14,4 +14,9 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
     ];
+
+    public function linkEvents()
+    {
+        return $this->hasMany(LinkEvent::class);
+    }
 }

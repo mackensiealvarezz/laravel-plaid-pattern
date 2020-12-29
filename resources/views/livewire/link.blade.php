@@ -5,13 +5,9 @@
                             console.log('link token: ' + response);
                             handler = Plaid.create({
                                 token: response,
-                                onSuccess: (public_token, metadata) => {
-                                    console.log(public_token);
-                                },
-                                onLoad: () => {
-                                    console.log('plaid link is being loaded');
-                                },
-                                onExit: (err, metadata) => {},
+                                onSuccess: (public_token, metadata) => $wire.onSuccess(public_token, metadata),
+                                onLoad: () => {},
+                                onExit: (err, metadata) => $wire.onExit(err, metadata),
                                 onEvent: (eventName, metadata) => {},
                                 receivedRedirectUri: null,
                             });
