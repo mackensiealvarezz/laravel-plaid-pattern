@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TransactionsUpdated;
 use App\Models\Account;
 use App\Models\Item;
 use App\Models\Transaction;
@@ -24,6 +25,9 @@ class WebHooksController extends Controller
                 $startDate = Carbon::now()->subDays(30)->format('Y-m-d');
                 $endDate = Carbon::now()->format('Y-m-d');
                 $this->handleTransactionsUpdate($request['item_id'], $startDate, $endDate);
+
+                //Alert the frontend that it's been updated
+                event(new TransactionsUpdated);
                 break;
             case 'HISTORICAL_UPDATE':
                 // Fired when an Item's historical transaction pull is completed. Plaid fetches as much

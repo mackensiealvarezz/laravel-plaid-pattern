@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Events\TransactionsUpdated;
 use App\Models\User;
 use Livewire\Component;
 

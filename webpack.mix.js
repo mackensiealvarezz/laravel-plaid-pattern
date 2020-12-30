@@ -1,6 +1,5 @@
-require('dotenv').config();
 const mix = require('laravel-mix');
-
+require('dotenv').config();
 
 /*
  |--------------------------------------------------------------------------
@@ -18,19 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
         require("tailwindcss"),
     ]);
 
-mix.copy('resources/js/plaid.js', 'public/js/plaid.js');
-
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
-mix.webpackConfig({
-    plugins: [
-        new BrowserSyncPlugin({
-            files: [
-                'app/**/*',
-                'public/**/*',
-                'resources/views/**/*',
-                'routes/**/*'
-            ]
-        })
-    ]
-});
+// mix.copy('resources/js/plaid.js', 'public/js/plaid.js');

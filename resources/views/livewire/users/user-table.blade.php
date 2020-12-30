@@ -2,7 +2,8 @@
     {{-- each row --}}
     <div class="space-y-8">
         @foreach ($users as $user)
-        <div class="flex items-center justify-between px-3 py-2 bg-white rounded-md shadow-xl shadow-b">
+        <div class="flex items-center justify-between px-3 py-2 bg-white rounded-md shadow-xl shadow-b"
+            wire:key='{{ time().$user->id }}'>
             <div class="px-2 py-4">
                 <span class="block text-xs font-bold text-blue-900">USER_ID</span>
                 <span class="block font-light text-blue-900">{{ $user->id }}</span>

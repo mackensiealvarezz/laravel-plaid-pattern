@@ -63,10 +63,4 @@
 </div>
 @section('js')
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-<script src="{{asset('js/plaid.js')}}" type="text/javascript"></script>
-<script>
-
-
-</script>
-
 @endsection
