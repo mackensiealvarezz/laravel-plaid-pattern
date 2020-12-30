@@ -21,12 +21,22 @@ class WebHooksController extends Controller
             case 'INITIAL_UPDATE':
                 // Fired when an Item's initial transaction pull is completed.
                 // Note: The default pull is 30 days.
-
-                //   await handleTransactionsUpdate(plaidItemId, startDate, endDate);
-                //   const { id: itemId } = await retrieveItemByPlaidItemId(plaidItemId);
-                //   serverLogAndEmitSocket(`${newTransactions} transactions to add.`, itemId);
-
                 $startDate = Carbon::now()->subDays(30)->format('Y-m-d');
+                $endDate = Carbon::now()->format('Y-m-d');
+                $this->handleTransactionsUpdate($request['item_id'], $startDate, $endDate);
+                break;
+            case 'HISTORICAL_UPDATE':
+                // Fired when an Item's historical transaction pull is completed. Plaid fetches as much
+                // data as is available from the financial institution.
+                $startDate = Carbon::now()->subYears(2)->format('Y-m-d');
+                $endDate = Carbon::now()->format('Y-m-d');
+                $this->handleTransactionsUpdate($request['item_id'], $startDate, $endDate);
+                break;
+            case 'DEFAULT_UPDATE':
+                // Fired when new transaction data is available as Plaid performs its regular updates of
+                // the Item. Since transactions may take several days to post, we'll fetch 14 days worth of
+                // transactions from Plaid and reconcile them with the transactions we already have stored.
+                $startDate = Carbon::now()->subDays(14)->format('Y-m-d');
                 $endDate = Carbon::now()->format('Y-m-d');
                 $this->handleTransactionsUpdate($request['item_id'], $startDate, $endDate);
                 break;
@@ -57,16 +67,8 @@ class WebHooksController extends Controller
             return $existingTransactions->where('plaid_transaction_id', $transaction['transaction_id'])->count() > 0;
         });
 
-        //Retrieve existing accounts for this item
-        $existingAccounts = Account::where('item_id', $item->id)->get();
-
         $accountsToStore = collect($response['accounts']);
-        $accountsToStore->reject(function ($account) use ($existingAccounts) {
-            return $existingAccounts->where('plaid_account_id', $account['account_id'])->count() > 0;
-        });
-
         //Mapping data
-
         $accountsToCreate = $accountsToStore->map(function ($account) use ($item) {
             return [
                 'item_id' => $item->id,
@@ -83,19 +85,31 @@ class WebHooksController extends Controller
             ];
         });
 
-        dd($accountsToCreate->all());
+        foreach ($accountsToCreate->all() as $account) {
+            Account::updateOrCreate(['plaid_account_id' => $account['plaid_account_id']], $account);
+        }
+        //load all accounts
+        $item->load('accounts');
+        //Add transactions to account
 
-
-        $item->accounts()->insert($accountsToCreate->all());
-
-
-        //    $transactionsToStore->mapWithKeys(function($item){
-        //         return [
-        //             ''
-        //         ];
-        //    });
-
-        dd($accountsToCreate->all());
+        $transactionsToCreate = $transactionsToStore->map(function ($transaction) use ($item) {
+            return [
+                'account_id' => $item->accounts->where('plaid_account_id', $transaction['account_id'])->first()->id,
+                'plaid_transaction_id' => $transaction['transaction_id'],
+                'plaid_category_id' => $transaction['category_id'],
+                'category' => implode(',', $transaction['category']),
+                'subcategory' => implode(',', $transaction['category']),
+                'type' => $transaction['transaction_type'],
+                'name' => $transaction['name'],
+                'amount' => $transaction['amount'],
+                'iso_currency_code' => $transaction['iso_currency_code'],
+                'unofficial_currency_code' => $transaction['unofficial_currency_code'],
+                'date' => $transaction['date'],
+                'pending' => $transaction['pending'],
+                'account_owner' => $transaction['account_owner'],
+            ];
+        });
+        Transaction::insert($transactionsToCreate->all());
     }
 
 

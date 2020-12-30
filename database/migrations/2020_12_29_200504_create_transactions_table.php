@@ -18,17 +18,17 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->integer('account_id');
             $table->string('plaid_transaction_id');
-            $table->string('plaid_category_id');
-            $table->string('category');
-            $table->string('subcategory');
-            $table->string('type');
-            $table->string('name');
-            $table->double('amount');
-            $table->string('iso_currency_code');
-            $table->string('unofficial_currency_code');
-            $table->date('date');
-            $table->boolean('pending');
-            $table->string('account_owner');
+            $table->string('plaid_category_id')->nullable();
+            $table->string('category')->nullable();
+            $table->string('subcategory')->nullable();
+            $table->string('type')->nullable();
+            $table->string('name')->nullable();
+            $table->double('amount')->nullable();
+            $table->string('iso_currency_code')->nullable();
+            $table->string('unofficial_currency_code')->nullable();
+            $table->date('date')->nullable();
+            $table->boolean('pending')->nullable();
+            $table->string('account_owner')->nullable();
             $table->timestamps();
         });
     }
