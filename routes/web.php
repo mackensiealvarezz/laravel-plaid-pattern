@@ -15,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', Welcome::class);
+
+Route::get('test', function () {
+    return Carbon\Carbon::now()->format('Y-m-d');
+});

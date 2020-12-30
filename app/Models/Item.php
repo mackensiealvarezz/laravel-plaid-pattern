@@ -23,4 +23,9 @@ class Item extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
 }

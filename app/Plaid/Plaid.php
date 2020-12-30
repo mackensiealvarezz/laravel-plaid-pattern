@@ -38,4 +38,16 @@ class Plaid
             'public_token' => $publicToken,
         ])->json();
     }
+
+    public function getTransactions($accessToken, $startDate, $endDate, $option = [])
+    {
+        return Http::post(self::baseUrl() . '/transactions/get', [
+            'client_id' => config('services.plaid.clientId'),
+            'secret' => config('services.plaid.secret'),
+            'access_token' => $accessToken,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'options' => $option
+        ])->json();
+    }
 }
