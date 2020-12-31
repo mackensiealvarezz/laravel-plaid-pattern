@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Users\Detail;
 use App\Http\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Welcome::class);
-
-Route::get('test', function () {
-    return Carbon\Carbon::now()->format('Y-m-d');
-});
+Route::get('/', Welcome::class)->name('welcome');
+Route::get('/users/{user:id}/items', Detail::class)->name('userItems');

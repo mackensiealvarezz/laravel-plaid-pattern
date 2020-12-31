@@ -20,7 +20,8 @@
                 <div class="space-y-1">
                     <livewire:link :user="$user" :key="time().$user->id" />
                     @if ($user->items->count() > 0)
-                    <a class="block text-sm text-gray-400 " href="#">View {{ $user->items->count() }} Linked Item
+                    <a class="block text-sm text-gray-400 " href="{{ route('userItems', $user) }}">View
+                        {{ $user->items->count() }} Linked Item
                     </a>
                     @endif
                 </div>
