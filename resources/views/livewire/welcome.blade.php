@@ -1,4 +1,4 @@
-<div class="px-40 py-32 " x-data="{openUser: false }">
+<div class="px-40 py-28 " x-data="{openUser: false }">
     <div class="container mx-auto">
 
         {{-- Top section --}}
@@ -44,7 +44,7 @@
 
         {{-- users- we will use livewire for this  --}}
         <div class="flex justify-between py-6">
-            <h2 class="text-xl text-blue-900 font-base">0 Users</h2>
+            <h2 class="text-xl text-blue-900 font-base">{{ $user_count }} Users</h2>
             <button class="px-4 py-3 bg-blue-900 rounded-sm text-blue-50 text-md" @click="openUser = !openUser"> Add a
                 New
                 User

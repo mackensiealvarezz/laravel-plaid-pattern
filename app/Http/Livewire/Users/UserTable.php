@@ -15,7 +15,7 @@ class UserTable extends Component
     public function render()
     {
         return view('livewire.users.user-table', [
-            'users' => User::all()
+            'users' => User::with('items')->get()
         ]);
     }
 }
