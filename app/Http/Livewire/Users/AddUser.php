@@ -10,6 +10,9 @@ class AddUser extends Component
 {
     public User $user;
 
+    //This will listen for refresh when a user is added and create a new object
+    protected $listeners = ['refresh' => '$refresh'];
+
     protected $rules = [
         'user.username' => 'required|unique:users,username'
     ];
@@ -23,7 +26,10 @@ class AddUser extends Component
     {
         $this->validate();
         $this->user->save();
+        //refresh the counter and table
         $this->emit('refresh');
+        //tell alpine to close the dropdown
+        $this->dispatchBrowserEvent('added-user');
     }
 
     public function render()

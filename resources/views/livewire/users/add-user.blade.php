@@ -1,4 +1,4 @@
-<div class="px-4 py-8 shadow-md">
+<div class="px-4 py-8 shadow-md" @added-user="openUser = false">
     <form wire:submit.prevent='save' class="flex items-center justify-between space-x-4 align-items-center">
         <div class="w-1/4 space-y-1">
             <label class="font-bold text-blue-900 text-md">ADD A NEW USER</label>
