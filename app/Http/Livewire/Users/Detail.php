@@ -12,7 +12,7 @@ class Detail extends Component
     public function render()
     {
         return view('livewire.users.detail', [
-            'item_count' => $this->user->items->count()
+            'items' => $this->user->items
         ]);
     }
 }

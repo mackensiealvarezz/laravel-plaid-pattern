@@ -50,4 +50,16 @@ class Plaid
             'options' => $option
         ])->json();
     }
+
+    public function getInstitutionById($institution_id)
+    {
+        return Http::post(self::baseUrl() . '/institutions/get_by_id', [
+            'client_id' => config('services.plaid.clientId'),
+            'secret' => config('services.plaid.secret'),
+            'institution_id' => $institution_id,
+            'options' => [
+                'include_optional_metadata' => true
+            ]
+        ])->json();
+    }
 }

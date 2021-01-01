@@ -1,4 +1,4 @@
-<div class="px-40 py-28 " x-data="{openUser: false }">
+<div class="px-40 py-28 ">
     <div class="container mx-auto">
         {{-- Top section --}}
         <div class="space-y-4">
@@ -33,26 +33,25 @@
         <hr />
 
         {{-- users- we will use livewire for this  --}}
-        <div class="space-y-1">
-            <div class="flex justify-between py-6">
-                <h2 class="text-xl text-blue-900 font-base">{{ $item_count }} Item Linked</h2>
-                <button class="px-4 py-3 bg-blue-900 rounded-sm text-blue-50 text-md"> Add Another Item </button>
+        <div class="flex justify-between py-6">
+            <div class="space-y-1">
+                <h2 class="text-xl text-blue-900 font-base">{{ $items->count() }} Item Linked</h2>
+                <p class="text-lg font-light text-gray-500">Below is a list of all the items. Click on an item to
+                    view its
+                    associated accounts</p>
             </div>
-            <p class="text-lg font-light text-gray-500">Below is a list of all the items. Click on an item to view its
-                associated accounts</p>
-        </div>
-
-
-        <div class="pt-4" x-show="openUser">
-            <livewire:users.add-user x-show="openUser" />
+            <button class="px-4 py-3 bg-blue-900 rounded-sm text-blue-50 text-md"> Add Another Item </button>
         </div>
 
         <div class="mt-10">
-            {{-- Item table here, showing linked accounts --}}
+            @foreach ($items as $item)
+            <livewire:item-card :item="$item" :key="$item->id" />
+            @endforeach
         </div>
 
     </div>
 </div>
+
 @section('js')
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 @endsection
