@@ -57,6 +57,7 @@ class Plaid
             'client_id' => config('services.plaid.clientId'),
             'secret' => config('services.plaid.secret'),
             'institution_id' => $institution_id,
+            'country_codes' => ['US'],
             'options' => [
                 'include_optional_metadata' => true
             ]
